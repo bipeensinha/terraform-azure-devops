@@ -1,47 +1,25 @@
-parameters:
-- name: endpoint
-  type: string
-  default: ''
-  
 trigger:
   branches:
     include:
-      - main  # Specify the branch where your Terraform files are located
+      - master
 
-pr:
-  branches:
-    include:
-      - main
+pool:
+  vmImage: 'ubuntu-latest'
 
-resources:
-  repositories:
-    - repository: terraform_demo
-      type: github
-      name: bipeensinha/terraform-azure-devops  # Specify the GitHub repository "BipeenSinha/Terraform-demo"
-      ref: main  # Specify the branch
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
 
-jobs:
-- job: Terraform
-  displayName: 'Terraform Job'
-  pool:
-    vmImage: 'ubuntu-latest'
+- script: |
+    terraform init
+    terraform validate
+  displayName: 'Terraform Init and Validate'
 
-  steps:
-  - checkout: self
+- script: terraform plan -out=tfplan -var="resource_group_name=$(resourceGroupName)" -var="location=$(location)"
+  displayName: 'Terraform Plan'
 
-  - task: TerraformInstaller@0
-    inputs:
-      terraformVersion: 'latest'
-
-  - script: |
-      cd path/to/terraform/files
-      terraform init
-    displayName: 'Terraform Init'
-
-  - script: |
-      terraform plan -out=tfplan
-    displayName: 'Terraform Plan'
-
-  - script: |
-      terraform apply -auto-approve tfplan
-    displayName: 'Terraform Apply'
+- script: terraform apply -input=false tfplan
+  displayName: 'Terraform Apply'
+  condition: succeeded()
