@@ -22,3 +22,7 @@ steps:
 - script: terraform apply -input=false tfplan
   displayName: 'Terraform Apply'
   condition: succeeded()
+
+- script: terraform destroy -input=false tfplan
+  displayName: 'Terraform destroy'
+  condition: succeeded()
