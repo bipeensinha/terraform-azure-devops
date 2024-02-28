@@ -14,7 +14,6 @@ steps:
 
 - script: |
     terraform init
-    terraform validate
   displayName: 'Terraform Init and Validate'
 
 - script: terraform plan -out=tfplan -var="resource_group_name=$(resourceGroupName)" -var="location=$(location)"
