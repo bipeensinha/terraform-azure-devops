@@ -1,0 +1,42 @@
+trigger:
+  branches:
+    include:
+      - main  # Specify the branch where your Terraform files are located
+
+pr:
+  branches:
+    include:
+      - main
+
+resources:
+  repositories:
+    - repository: terraform_demo
+      type: github
+      name: bipeensinha/terraform-azure-devops  # Specify the GitHub repository "BipeenSinha/Terraform-demo"
+      ref: main  # Specify the branch
+
+jobs:
+- job: Terraform
+  displayName: 'Terraform Job'
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - checkout: self
+
+  - task: TerraformInstaller@0
+    inputs:
+      terraformVersion: 'latest'
+
+  - script: |
+      cd path/to/terraform/files
+      terraform init
+    displayName: 'Terraform Init'
+
+  - script: |
+      terraform plan -out=tfplan
+    displayName: 'Terraform Plan'
+
+  - script: |
+      terraform apply -auto-approve tfplan
+    displayName: 'Terraform Apply'
