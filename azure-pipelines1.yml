@@ -4,6 +4,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+
 steps:
 - task: UsePythonVersion@0
   inputs:
@@ -26,7 +27,6 @@ steps:
       # Select Azure subscription
       az account set --subscription 49c56ee8-d443-4854-a62c-3a0aae84ac6f
 
-      az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
     
 
 - script: |
@@ -46,7 +46,9 @@ steps:
     azureSubscription: 'Azuretfsvc1'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: |
+    inlineScript: 
+      # Upload blob to Azure Storage
+      az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
       # Clean up temporary files or credentials
       rm -rf ~/.azure/credentials*
-  displayName: 'Cleanup'
+  displayName: 'Upload Blob and Cleanup'
