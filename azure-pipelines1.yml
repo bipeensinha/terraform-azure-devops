@@ -29,7 +29,7 @@ steps:
 
     
 
-- script: |
+# - script: |
   #  terraform init -backend-config="resource_group_name=AZ800" -backend-config="storage_account_name=tfdemo19752004" -backend-config="container_name=tfstate" -backend-config="key=terraform.tfstate"
 - script: |
    az login --service-principal -u 0b381472-3197-49d4-a324-f1a96a23c8a7 -p t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH --tenant be04fbd5-6b00-412c-a86c-ca105b5cce90
@@ -46,7 +46,7 @@ steps:
   displayName: 'Create backend.tf'
 
 - script: |
-     az login --service-principal -u 0b381472-3197-49d4-a324-f1a96a23c8a7 -p t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH --tenant be04fbd5-6b00-412c-a86c-ca105b5cce90
+    az login --service-principal -u 0b381472-3197-49d4-a324-f1a96a23c8a7 -p t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH --tenant be04fbd5-6b00-412c-a86c-ca105b5cce90
     # Initialize Terraform with backend configuration
     terraform init
   displayName: 'Terraform Init'
