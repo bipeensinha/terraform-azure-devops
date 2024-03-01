@@ -14,22 +14,7 @@ steps:
     echo "##vso[task.prependpath]/usr/local/bin"
   displayName: 'Add /usr/local/bin to PATH'
 
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azuretfsvc1'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      # Authenticate to Azure
-      az login --service-principal -u 0b381472-3197-49d4-a324-f1a96a23c8a7 -p t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH --tenant be04fbd5-6b00-412c-a86c-ca105b5cce90
-      
-      # Select Azure subscription
-      az account set --subscription 49c56ee8-d443-4854-a62c-3a0aae84ac6f
-      
-      # Set up Terraform backend
-      az storage account create --name tfdemo19752004 --resource-group example --location eastus --sku Standard_LRS
-      az storage container create --name tfstate --account-name tfdemo19752004
-      az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
+
 
 - script: |
     terraform init -backend-config="storage_account_name=tfdemo19752004" -backend-config="container_name=tfstate" -backend-config="key=terraform.tfstate"
