@@ -41,7 +41,7 @@ steps:
   
    
     # Confirm "yes" to Terraform prompt
-    terraform init -backend-config="resource_group_name=AZ800" -auto-approve -input=false
+    yes | terraform init -backend-config="resource_group_name=AZ800" -auto-approve
   displayName: 'Create backend.tf and Initialize Terraform'
 
 # Plan Terraform deployment
