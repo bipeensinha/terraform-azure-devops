@@ -40,6 +40,9 @@ steps:
     echo '  }' >> backend.tf
     echo '}' >> backend.tf
   displayName: 'Create backend.tf'
+- script: |
+    # Initialize Terraform with backend configuration
+    terraform init
   displayName: 'Terraform Init'
 
 - script: |
