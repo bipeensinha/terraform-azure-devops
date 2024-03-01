@@ -31,15 +31,19 @@ steps:
 
 - script: |
   #  terraform init -backend-config="resource_group_name=AZ800" -backend-config="storage_account_name=tfdemo19752004" -backend-config="container_name=tfstate" -backend-config="key=terraform.tfstate"
-# Terraform backend configuration
-    echo 'terraform {' > backend.tf
-    echo '  backend "azurerm" {' >> backend.tf
-    echo '    storage_account_name  = "tfdemo19752004"' >> backend.tf
-    echo '    container_name        = "tfstate"' >> backend.tf
-    echo '    key                   = "terraform.tfstate"' >> backend.tf
-    echo '  }' >> backend.tf
-    echo '}' >> backend.tf
+- script: |
+    # Terraform backend configuration
+    cat <<EOF > backend.tf
+    terraform {
+      backend "azurerm" {
+        storage_account_name  = "tfdemo19752004"
+        container_name        = "tfstate"
+        key                   = "terraform.tfstate"
+      }
+    }
+    EOF
   displayName: 'Create backend.tf'
+
 - script: |
     # Initialize Terraform with backend configuration
     terraform init
