@@ -38,12 +38,11 @@ steps:
       }
     }
     EOF
-  displayName: 'Create backend.tf'
-
-# Initialize Terraform with backend configuration
-- script: |
-    terraform init
-  displayName: 'Terraform Init'
+  
+   
+    # Confirm "yes" to Terraform prompt
+    echo "yes" | terraform init
+  displayName: 'Create backend.tf and Initialize Terraform'
 
 # Plan Terraform deployment
 - script: |
