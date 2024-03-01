@@ -41,7 +41,7 @@ steps:
   
    
     # Confirm "yes" to Terraform prompt
-    echo "yes" | terraform init
+    terraform init -auto-approve
   displayName: 'Create backend.tf and Initialize Terraform'
 
 # Plan Terraform deployment
