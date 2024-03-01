@@ -46,7 +46,7 @@ steps:
     azureSubscription: 'Azuretfsvc1'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 
+    inlineScript: |
       # Upload blob to Azure Storage
       az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
       # Clean up temporary files or credentials
