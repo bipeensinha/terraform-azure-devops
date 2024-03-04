@@ -25,6 +25,7 @@ steps:
 - task: AzureCLI@2
   displayName: "Create/Check the Terraform Statefile Azure Storage Account"
   inputs:
+    backendServiceArm: ""
     azureSubscription: "Azuretfsvc1"
     addSpnToEnvironment: true
     scriptType: "bash"
