@@ -27,8 +27,8 @@ steps:
       az account set --subscription 49c56ee8-d443-4854-a62c-3a0aae84ac6f
    
     # Confirm "yes" to Terraform prompt
-    yes | terraform init -backend-config="resource_group_name=AZ800" -auto-approve
-  displayName: 'Create backend.tf and Initialize Terraform'
+      terraform init -backend-config="resource_group_name=AZ800" -auto-approve
+   displayName: 'Create backend.tf and Initialize Terraform'
 
 # Plan Terraform deployment
 - script: |
