@@ -1,44 +1,42 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~>3.0"
     }
   }
+
+  backend "azurerm" {
+    resource_group_name  = "az800"
+    storage_account_name = "tfdemo19752004"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
 }
+
 variable "default_tags" {
   description = "The defaults tags, we will be adding to the these"
   type        = map
-  default = {
+  default     = {
     project        = "devops-pipeline-test"
     environment    = "dev"
     deployed_using = "terraform"
   }
 }
-terraform {
-      backend "azurerm" {
-        resource_group_name  = "az800"
-        storage_account_name  = "tfdemo19752004"
-        container_name        = "tfstate"
-        key                   = "terraform.tfstate"
-      }
-    }
-# az ad sp create-for-rbac --name ServicePrincipalName --role Contributor --scopes /subscriptions/49c56ee8-d443-4854-a62c-3a0aae84ac6f
 
 provider "azurerm" {
   features {}
 
-  subscription_id   = "49c56ee8-d443-4854-a62c-3a0aae84ac6f"
-  tenant_id         = "be04fbd5-6b00-412c-a86c-ca105b5cce90"
-  client_id         = "0b381472-3197-49d4-a324-f1a96a23c8a7"
-  client_secret     = "t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH"
+  subscription_id = "49c56ee8-d443-4854-a62c-3a0aae84ac6f"
+  tenant_id       = "be04fbd5-6b00-412c-a86c-ca105b5cce90"
+  client_id       = "0b381472-3197-49d4-a324-f1a96a23c8a7"
+  client_secret   = "t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH"
 }
 
 resource "azurerm_resource_group" "example" {
   name     = "example"
   location = "East US"
 }
-
 # Network
 resource "azurerm_virtual_network" "example" {
   name                = var.virtual_network_name
