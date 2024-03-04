@@ -14,10 +14,9 @@ steps:
     echo "##vso[task.prependpath]/usr/local/bin"
   displayName: 'Add /usr/local/bin to PATH'
 
-
-   
-      # Confirm "yes" to Terraform prompt
-      terraform init
+- script: |
+    # Confirm "yes" to Terraform prompt
+    terraform init
   displayName: 'Create backend.tf and Initialize Terraform'
 
 - script: |
