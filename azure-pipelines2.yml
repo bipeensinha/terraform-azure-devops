@@ -26,21 +26,18 @@ steps:
       # Select Azure subscription
       az account set --subscription 49c56ee8-d443-4854-a62c-3a0aae84ac6f
    
-    # Confirm "yes" to Terraform prompt
+      # Confirm "yes" to Terraform prompt
       terraform init -backend-config="resource_group_name=AZ800" -auto-approve
-   displayName: 'Create backend.tf and Initialize Terraform'
+  displayName: 'Create backend.tf and Initialize Terraform'
 
-# Plan Terraform deployment
 - script: |
     terraform plan
   displayName: 'Terraform Plan'
 
-# Apply Terraform changes
 - script: |
     terraform apply -auto-approve
   displayName: 'Terraform Apply'
 
-# Upload blob to Azure Storage and cleanup
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Azuretfsvc1'
@@ -50,4 +47,3 @@ steps:
       az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
       rm -rf ~/.azure/credentials*
   displayName: 'Upload Blob and Cleanup'
-
