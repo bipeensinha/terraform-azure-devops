@@ -25,7 +25,7 @@ steps:
 - task: AzureCLI@2
   displayName: "Create/Check the Terraform Statefile Azure Storage Account"
   inputs:
-    azureSubscription: 'Azuretfsvc1'
+    azureSubscription: "Azuretfsvc1"
     addSpnToEnvironment: true
     scriptType: "bash"
     scriptLocation: "inlineScript"
@@ -40,7 +40,7 @@ steps:
   displayName: "Run > terraform init"
   inputs:
     command: "init"
-    backendServiceArm: 'Azuretfsvc1'
+    backendServiceArm: "Azuretfsvc1"
     backendAzureRmResourceGroupName: "$(tf_state_rg)"
     backendAzureRmStorageAccountName: "$(tf_state_sa_name)"
     backendAzureRmContainerName: "$(tf_state_container_name)"
@@ -50,17 +50,17 @@ steps:
   displayName: "Run > terraform plan"
   inputs:
     command: "plan"
-    environmentServiceNameAzureRM: 'Azuretfsvc1'
+    environmentServiceNameAzureRM: "Azuretfsvc1"
 
 - task: TerraformTaskV1@0
   displayName: "Run > terraform apply"
   inputs:
     command: "apply"
-    environmentServiceNameAzureRM: 'Azuretfsvc1'
+    environmentServiceNameAzureRM: "Azuretfsvc1"
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'Azuretfsvc1'
+    azureSubscription: "Azuretfsvc1"
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
