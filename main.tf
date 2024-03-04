@@ -27,10 +27,10 @@ variable "default_tags" {
 provider "azurerm" {
   features {}
 
-  subscription_id = "49c56ee8-d443-4854-a62c-3a0aae84ac6f"
-  tenant_id       = "be04fbd5-6b00-412c-a86c-ca105b5cce90"
-  client_id       = "0b381472-3197-49d4-a324-f1a96a23c8a7"
-  client_secret   = "t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH"
+ # subscription_id = "49c56ee8-d443-4854-a62c-3a0aae84ac6f"
+ # tenant_id       = "be04fbd5-6b00-412c-a86c-ca105b5cce90"
+ # client_id       = "0b381472-3197-49d4-a324-f1a96a23c8a7"
+ # client_secret   = "t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH"
 }
 
 resource "azurerm_resource_group" "example" {
