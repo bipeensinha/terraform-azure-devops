@@ -6,7 +6,14 @@ terraform {
     }
   }
 }
-
+terraform {
+      backend "azurerm" {
+        resource_group_name  = "az800"
+        storage_account_name  = "tfdemo19752004"
+        container_name        = "tfstate"
+        key                   = "terraform.tfstate"
+      }
+    }
 # az ad sp create-for-rbac --name ServicePrincipalName --role Contributor --scopes /subscriptions/49c56ee8-d443-4854-a62c-3a0aae84ac6f
 
 provider "azurerm" {
