@@ -1,1 +1,53 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- script: |
+    echo "##vso[task.prependpath]/usr/local/bin"
+  displayName: 'Add /usr/local/bin to PATH'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azuretfsvc1'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Authenticate to Azure
+      az login --service-principal -u 0b381472-3197-49d4-a324-f1a96a23c8a7 -p t8P8Q~Yb4L8Dn~oj9t5GPzFOROUqJM4VJXTTBbLH --tenant be04fbd5-6b00-412c-a86c-ca105b5cce90
+      
+      # Select Azure subscription
+      az account set --subscription 49c56ee8-d443-4854-a62c-3a0aae84ac6f
+   
+    # Confirm "yes" to Terraform prompt
+    yes | terraform init -backend-config="resource_group_name=AZ800" -auto-approve
+  displayName: 'Create backend.tf and Initialize Terraform'
+
+# Plan Terraform deployment
+- script: |
+    terraform plan
+  displayName: 'Terraform Plan'
+
+# Apply Terraform changes
+- script: |
+    terraform apply -auto-approve
+  displayName: 'Terraform Apply'
+
+# Upload blob to Azure Storage and cleanup
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azuretfsvc1'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az storage blob upload --container-name tfstate --account-name tfdemo19752004 --name terraform.tfstate --file terraform.tfstate
+      rm -rf ~/.azure/credentials*
+  displayName: 'Upload Blob and Cleanup'
 
